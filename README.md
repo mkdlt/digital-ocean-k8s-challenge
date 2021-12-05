@@ -1,1 +1,2 @@
-# digital-ocean-k8s-challenge
+# DigitalOcean Kubernetes Challenge
+## Deploying a scalable PostgreSQL cluster
