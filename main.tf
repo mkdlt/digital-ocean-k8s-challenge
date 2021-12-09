@@ -8,7 +8,7 @@ terraform {
   }
   required_providers {
     digitalocean = {
-      source = "digitalocean/digitalocean"
+      source  = "digitalocean/digitalocean"
       version = "~> 2.16.0"
     }
   }
@@ -26,7 +26,7 @@ data "digitalocean_ssh_key" "terraform-cloud-token" {
 }
 
 resource "digitalocean_project" "digital-ocean-k8s-challenge" {
-    name        = "digital-ocean-k8s-challenge"
-    description = "DigitalOcean Kubernetes Challenge"
-    purpose     = "Deploy a scalable SQL cluster"
+  name        = "digital-ocean-k8s-challenge"
+  description = "DigitalOcean Kubernetes Challenge"
+  purpose     = "Deploy a scalable SQL cluster"
 }
