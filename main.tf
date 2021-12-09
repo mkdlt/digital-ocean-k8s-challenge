@@ -14,10 +14,6 @@ terraform {
   }
 }
 
-data "digitalocean_ssh_key" "terraform-cloud-token" {
-  name = "terraform-cloud-token"
-}
-
 resource "digitalocean_project" "digital-ocean-k8s-challenge" {
   name        = "digital-ocean-k8s-challenge"
   description = "DigitalOcean Kubernetes Challenge"
