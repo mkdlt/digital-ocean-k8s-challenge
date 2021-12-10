@@ -49,8 +49,8 @@ resource "kubectl_manifest" "manifests" {
   yaml_body = file(element(data.kubectl_filename_list.manifest_list.matches, count.index))
 }
 
-variable superUserPassword {}
-variable replicationUserPassword {}
+variable "superUserPassword" {}
+variable "replicationUserPassword" {}
 
 
 resource "kubernetes_secret" "postgres_secret" {
@@ -79,9 +79,9 @@ resource "digitalocean_project" "digital_ocean_k8s_challenge" {
 }
 
 resource "digitalocean_vpc" "k8s" {
-  name    = "k8s-vpc"
-  region  = "sgp1"
-  
+  name   = "k8s-vpc"
+  region = "sgp1"
+
   timeouts {
     delete = "2m"
   }
