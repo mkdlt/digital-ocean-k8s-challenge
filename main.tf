@@ -59,12 +59,12 @@ resource "kubernetes_secret" "postgres_secret" {
 }
 
 data "kubectl_path_documents" "docs" {
-    pattern = "./manifests/*.yaml"
+  pattern = "./manifests/*.yaml"
 }
 
 resource "kubectl_manifest" "kubegres" {
-    for_each  = toset(data.kubectl_path_documents.docs.documents)
-    yaml_body = each.value
+  for_each  = toset(data.kubectl_path_documents.docs.documents)
+  yaml_body = each.value
 }
 
 resource "digitalocean_project" "digital_ocean_k8s_challenge" {
