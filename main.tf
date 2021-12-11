@@ -38,6 +38,7 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(
     digitalocean_kubernetes_cluster.postgres.kube_config[0].cluster_ca_certificate
   )
+  load_config_file = false
 }
 
 variable "superUserPassword" {}
