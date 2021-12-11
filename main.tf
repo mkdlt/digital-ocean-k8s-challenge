@@ -40,15 +40,6 @@ provider "kubectl" {
   )
 }
 
-data "kubectl_filename_list" "manifest_list" {
-  pattern = "./manifests/*.yaml"
-}
-
-resource "kubectl_manifest" "manifests" {
-  count     = length(data.kubectl_filename_list.manifest_list.matches)
-  yaml_body = file(element(data.kubectl_filename_list.manifest_list.matches, count.index))
-}
-
 variable "superUserPassword" {}
 variable "replicationUserPassword" {}
 
@@ -67,6 +58,15 @@ resource "kubernetes_secret" "postgres_secret" {
   type = "Opaque"
 }
 
+data "kubectl_path_documents" "docs" {
+    pattern = "./manifests/*.yaml"
+}
+
+resource "kubectl_manifest" "kubegres" {
+    for_each  = toset(data.kubectl_path_documents.docs.documents)
+    yaml_body = each.value
+}
+
 resource "digitalocean_project" "digital_ocean_k8s_challenge" {
   name        = "digital-ocean-k8s-challenge"
   description = "Entry for the DigitalOcean Kubernetes Challenge"
@@ -83,7 +83,7 @@ resource "digitalocean_vpc" "k8s" {
   region = "sgp1"
 
   timeouts {
-    delete = "2m"
+    delete = "4m"
   }
 }
 
